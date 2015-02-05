@@ -1,0 +1,14 @@
+RS232 MAX3232 TTL конвертер уровней UART com-порт
+
+драйвера USB интерфейса: http://www.hddhelp.com.ua/article_files/sd15/usbtocom.rar
+
+Статьи:
+USB - RS-232 преобразователи http://www.radiokot.ru/circuit/digital/pcmod/05/
+
+Работа с UART интерфейсом: http://cxem.net/mc/mc129.php
+
+чип MAX3232CSE
+питание 3 v - 5.5 v
+9.4 mm*15.9 mm
+
+для RS-232 (com = последовательный порт = serial port)

@@ -1,0 +1,489 @@
+Class for DHTxx sensors (xx = 11-21-22-33-44).
+Last Modified: 	January 21, 2015, at 03:49 PM
+By: 	
+Platforms: 	UNO, MEGA2560, DUE, Attiny85, Digistump Digix (84 MHz)
+
+remarks & comments
+
+latest version on github https://github.com/RobTillaart/Arduino/tree/master/libraries/DHTlib
+
+Intro
+
+The DHT11, DHT21 and DHT22 are relative cheap sensors for measuring temperature and humidity. This article describes a library for reading both values from these sensors. Recently I wrote a library for the DHT11 only, see - http://playground.arduino.cc/Main/DHT11Lib - It has a smaller footprint so if you only use DHT11 it might be preferred.
+
+I contacted the manufacturer to get the details of the differences between the two DHT sensors to build a lib that supports both. The DHT21/22 is quite similar to the DHT11 and has a greater accuracy (one decimal) and range (negative temperatures). The hardware pins and handshake are identical but it uses a different data format.
+
+The DHT33/44 are tested - got free sample from http://shop.boxtec.ch for testing (thanks!) - and they are working great. According to specification these two have a DS18B20 temperature sensor inside which is more accurate than the DHT21/22 and 11. See elaborate comparison
+
+A very good Humidity comparison (technical).
+
+The library (0.1.09) is confirmed to work on:
+
+    UNO (tested myself)
+    2009 (tested myself)
+    MEGA2560 by SimKard.
+    DUE
+    attiny85 @8MHz
+    Digistump Digix @ 84 MHz 
+
+The library 0.1.10 is confirmed to work on all above except attiny85. (June 2nd 2014) The library 0.1.13 is confirmed to work on UNO, 2009 and MEGA. (June 29nd 2014) The library 0.1.14 is confirmed to work on UNO, 2009 and MEGA. (Oct 4rt 2014)
+
+Note: The Digistump Digix is a 3.3V device and it works with the DHT22, however when a level shifter was used the communication failed. So the DHT22 works well on 3.3V.
+
+(todo: find references)
+Major fixes
+
+    update: 0.1.05 fixes negative temperatures for DHT22 (Gave CRC error)
+    update: 0.1.07 added support for DHT21 (math equals DHT22)
+    update: 0.1.10 update timing substantial faster for DHT21 and DHT22
+    update: 0.1.11 and 0.1.12 are not published version (developer only)
+    update: 0.1.13 added support for DHT33 and DHT44 - LAST DUE VERSION
+    update: 0.1.14 replaced digitalRead with faster code (AVR ONLY!!! better support for lower Mhz devices)
+    update: 0.1.19 fixes broken DHT11 (AVR ONLY) 
+
+Alternative names
+
+The DHT sensors are also available under other names.
+
+    DHT11 = RHT01 = ...
+    DHT21 = RHT02= AM2301 = HM2301
+    DHT22 = RHT03= AM2302
+    DHT33 = RHT04 = AM2303
+    DHT44 = RHT05 
+
+Datasheets can be found by searching for RHT0x e.g
+
+    http://shop.boxtec.ch/temperature-c-39_71.html (click on the sensor page for the PDF's)
+    http://humiditycn.com/ 
+
+Other libraries:
+
+    There is another library for the DHT22 that is known to work with Arduino 1.0 on ATmega328 Uno boards: https://github.com/ringerc/Arduino-DHT22 ; it is based on earlier work by nethoncho.
+    And yet another library with real low memory and code size footprint, auto detect DHT11/DHT22 sensor: https://github.com/markruys/arduino-DHT.
+    A calibration method by revmike is discussed here.
+    A nice comfort map is written by JImboZA comfort map
+    An experiment with reading less bytes here 
+
+Connection (hardware)
+
+The DHT11/21/22 has three lines, GND, +5V and a single data line. By means of a handshake the values are clocked out over the single digital line. Details about the protocol see datasheet: http://www.micro4you.com/files/sensor/DHT11.pdf (handshake for DHT21/22 is identical, data format differs)
+
+Simkard added a picture for the pin layout which is not in the datasheet, see => http://arduino.cc/forum/index.php/topic,58531.msg421787.html#msg421787
+
+From left to right
+
+    1 : VCC (5V)
+    2 : SIGnal
+    3 : NC Not connected
+    4 : GND 
+
+There have been reports that some sensors have pin 3 and 4 reversed, probably as a quality control/manufacturing issue. If you have issues, consider grounding both pins 3 and 4.
+
+3 pins break out shield version of DHT11 - http://www.geeetech.com/wiki/index.php/Electric_thermometer_by_using_DHT11_sensor_module
+DHT library
+
+The library at the end of this article is rewritten from scratch although inspired by earlier work of George Hadjikyriacou. While I wrote, Simkard did the testing so we can say it is an international library ;).
+
+The library is not compatible with earlier DHT libraries to be able to support both DHT's and stay as simple as possible and to minimize footprint.
+
+The interface of the class supports only one function for reading the humidity and temperature from the sensors and store it in two members of the class. The read() function verifies the checksum of the data transmission and it has a time out function. If there is a checksum error the values of temperature and/or humidity might still be valid.
+
+The class has 6 read functions read11(PIN), read(PIN) and readxx(PIN) which have essentially the same interface. They read the DHT connected to PIN, and fill the two class members temperature and humidity. Multiple reads from these class members (H & T) will return the same (previous) values until a new read is done.
+
+The readXX() functions return:
+
+    DHTLIB_OK (0) : if the sensor sample and its checksum is OK.
+    DHTLIB_ERROR_CHECKSUM (-1) : if the checksum test failed. This means that data was received but may be incorrect.
+    DHTLIB_ERROR_TIMEOUT (-2) : if a timeout occured, communication failed. 
+
+In case of a DHTLIB_ERROR_TIMEOUT, humidity and temperature will both get the value DHTLIB_INVALID_VALUE. In case of DHTLIB_ERROR_CHECKSUM the values of humidity and temperature are left unchanged as it is impossible to determine which byte failed in the checksum. It is up to the programmer to decide what to do. One can compare with previous value, but better reread the sensor.
+
+The class is kept simple and with one instance it is possible to read multiple, even different sensors, provided each sensor has a separate pin. Please note that the values of temperature and humidity will be overwritten with every call. So either copy those values asap of use an instance of the class per sensor. Since version 0.1.04 the temperature and humidity are set to DHTLIB_INVALID_VALUE if there is a DHTLIB_ERROR_TIMEOUT to make explicit there is something wrong.
+
+If one only needs e.g. the DHT22 part one could comment/remove the read11() function in the .cpp and .h files so the footprint is a few bytes smaller. (update: compiler optimizes this so not needed)
+
+The TIMEOUT now depends on the F_CPU : #define TIMEOUT (F_CPU/40000). Works for all CPU speed under 100MHz.
+
+2014-feb-08: Tried using micros() to determine TIMEOUT more accurately, resulted in a larger footprint. Added time measurement for demo sketch DHT22. A call to read Temperature and humidity takes between 24 and 25 milliseconds from which 20 milliseconds is a "chip wake up" call. Worth investigating if this can be reduced. (both fixed in the 01.10 version)
+Usage
+
+A sketch shows how the library can be used to read the sensor. --- Note: the max frequency the sensor can be sampled is about once per 2 seconds
+
+//
+//    FILE: dht_test.ino
+//  AUTHOR: Rob Tillaart
+// VERSION: 0.1.07
+// PURPOSE: DHT Temperature & Humidity Sensor library for Arduino
+//     URL: http://arduino.cc/playground/Main/DHTLib
+//
+// Released to the public domain
+//
+
+#include <dht.h>
+
+dht DHT;
+
+#define DHT11_PIN 4
+#define DHT21_PIN 5
+#define DHT22_PIN 6
+
+void setup()
+{
+  Serial.begin(115200);
+  Serial.println("DHT TEST PROGRAM ");
+  Serial.print("LIBRARY VERSION: ");
+  Serial.println(DHT_LIB_VERSION);
+  Serial.println();
+  Serial.println("Type,\tstatus,\tHumidity (%),\tTemperature (C)");
+}
+
+void loop()
+{
+  // READ DATA
+  Serial.print("DHT22, \t");
+  int chk = DHT.read22(DHT22_PIN);
+  switch (chk)
+  {
+    case DHTLIB_OK:  
+		Serial.print("OK,\t"); 
+		break;
+    case DHTLIB_ERROR_CHECKSUM: 
+		Serial.print("Checksum error,\t"); 
+		break;
+    case DHTLIB_ERROR_TIMEOUT: 
+		Serial.print("Time out error,\t"); 
+		break;
+    default: 
+		Serial.print("Unknown error,\t"); 
+		break;
+  }
+  // DISPLAY DATA
+  Serial.print(DHT.humidity, 1);
+  Serial.print(",\t");
+  Serial.println(DHT.temperature, 1);
+
+  delay(1000);
+
+
+    // READ DATA
+  Serial.print("DHT21, \t");
+  chk = DHT.read21(DHT21_PIN);
+  switch (chk)
+  {
+    case DHTLIB_OK:  
+		Serial.print("OK,\t"); 
+		break;
+    case DHTLIB_ERROR_CHECKSUM: 
+		Serial.print("Checksum error,\t"); 
+		break;
+    case DHTLIB_ERROR_TIMEOUT: 
+		Serial.print("Time out error,\t"); 
+		break;
+    default: 
+		Serial.print("Unknown error,\t"); 
+		break;
+  }
+  // DISPLAY DATA
+  Serial.print(DHT.humidity, 1);
+  Serial.print(",\t");
+  Serial.println(DHT.temperature, 1);
+
+  delay(1000);
+
+  // READ DATA
+  Serial.print("DHT11, \t");
+  chk = DHT.read11(DHT11_PIN);
+  switch (chk)
+  {
+    case DHTLIB_OK:  
+		Serial.print("OK,\t"); 
+		break;
+    case DHTLIB_ERROR_CHECKSUM: 
+		Serial.print("Checksum error,\t"); 
+		break;
+    case DHTLIB_ERROR_TIMEOUT: 
+		Serial.print("Time out error,\t"); 
+		break;
+    default: 
+		Serial.print("Unknown error,\t"); 
+		break;
+  }
+ // DISPLAY DATA
+  Serial.print(DHT.humidity,1);
+  Serial.print(",\t");
+  Serial.println(DHT.temperature,1);
+
+  delay(1000);
+}
+//
+// END OF FILE
+//
+
+In setup() The version of the library (a define) is displayed. This is for debugging purpose only.
+
+In loop() a DHT22, a DHT21 and a DHT11 sensor are read and the fields temperature and humidity are filled. The return value of the readXX function is checked and displayed. Then the temperature and humidity are shown.
+
+    see - http://playground.arduino.cc/Main/DHT11Lib - for a dewpoint function. 
+
+Notes
+
+To use the library, make a folder in your SKETCHBOOKPATH\libaries with the name DHT and put the .h and .cpp there. Optionally make a examples subdirectory to place the sample app.
+
+    DHT22 and multiplexing is discussed here 
+
+Todo
+
+    test humidity range
+    investigate non blocking version ? as current version is blocking while reading;
+        Niesteszeck has made an interrupt-driven library for the DHT11 sensor. 
+    lastRead timestamp to check time to calibrate (2 seconds) ==> should be per sensor ==> other design needed 
+
+Enjoy tinkering,
+
+rob.tillaart@removethisgmail.com
+dht.h
+
+//
+//    FILE: dht.h
+//  AUTHOR: Rob Tillaart
+// VERSION: 0.1.14
+// PURPOSE: DHT Temperature & Humidity Sensor library for Arduino
+//     URL: http://arduino.cc/playground/Main/DHTLib
+//
+// HISTORY:
+// see dht.cpp file
+//
+
+#ifndef dht_h
+#define dht_h
+
+#if ARDUINO < 100
+#include <WProgram.h>
+#else
+#include <Arduino.h>
+#endif
+
+#define DHT_LIB_VERSION "0.1.14"
+
+#define DHTLIB_OK                0
+#define DHTLIB_ERROR_CHECKSUM   -1
+#define DHTLIB_ERROR_TIMEOUT    -2
+#define DHTLIB_INVALID_VALUE    -999
+
+#define DHTLIB_DHT11_WAKEUP     18
+#define DHTLIB_DHT_WAKEUP       1
+
+// max timeout is 100 usec.
+// For a 16 Mhz proc 100 usec is 1600 clock cycles
+// loops using DHTLIB_TIMEOUT use at least 4 clock cycli
+// so 100 us takes max 400 loops
+// so by dividing F_CPU by 40000 we "fail" as fast as possible
+#define DHTLIB_TIMEOUT (F_CPU/40000)
+
+class dht
+{
+public:
+    // return values:
+    // DHTLIB_OK
+    // DHTLIB_ERROR_CHECKSUM
+    // DHTLIB_ERROR_TIMEOUT
+    int read11(uint8_t pin);
+    int read(uint8_t pin);
+
+    inline int read21(uint8_t pin) { return read(pin); };
+    inline int read22(uint8_t pin) { return read(pin); };
+    inline int read33(uint8_t pin) { return read(pin); };
+    inline int read44(uint8_t pin) { return read(pin); };
+
+    double humidity;
+    double temperature;
+
+private:
+    uint8_t bits[5];  // buffer to receive data
+    int _readSensor(uint8_t pin, uint8_t wakeupDelay);
+};
+#endif
+//
+// END OF FILE
+//
+
+dht.cpp
+
+//
+//    FILE: dht.cpp
+//  AUTHOR: Rob Tillaart
+// VERSION: 0.1.14
+// PURPOSE: DHT Temperature & Humidity Sensor library for Arduino
+//     URL: http://arduino.cc/playground/Main/DHTLib
+//
+// HISTORY:
+// 0.1.14 replace digital read with faster (~3x) code => more robust low MHz machines.
+// 0.1.13 fix negative temperature
+// 0.1.12 support DHT33 and DHT44 initial version
+// 0.1.11 renamed DHTLIB_TIMEOUT
+// 0.1.10 optimized faster WAKEUP + TIMEOUT
+// 0.1.09 optimize size: timeout check + use of mask
+// 0.1.08 added formula for timeout based upon clockspeed
+// 0.1.07 added support for DHT21
+// 0.1.06 minimize footprint (2012-12-27)
+// 0.1.05 fixed negative temperature bug (thanks to Roseman)
+// 0.1.04 improved readability of code using DHTLIB_OK in code
+// 0.1.03 added error values for temp and humidity when read failed
+// 0.1.02 added error codes
+// 0.1.01 added support for Arduino 1.0, fixed typos (31/12/2011)
+// 0.1.00 by Rob Tillaart (01/04/2011)
+//
+// inspired by DHT11 library
+//
+// Released to the public domain
+//
+
+#include "dht.h"
+
+/////////////////////////////////////////////////////
+//
+// PUBLIC
+//
+
+// return values:
+// DHTLIB_OK
+// DHTLIB_ERROR_CHECKSUM
+// DHTLIB_ERROR_TIMEOUT
+int dht::read11(uint8_t pin)
+{
+    // READ VALUES
+    int rv = _readSensor(pin, DHTLIB_DHT11_WAKEUP);
+    if (rv != DHTLIB_OK)
+    {
+        humidity    = DHTLIB_INVALID_VALUE; // invalid value, or is NaN prefered?
+        temperature = DHTLIB_INVALID_VALUE; // invalid value
+        return rv;
+    }
+
+    // CONVERT AND STORE
+    humidity    = bits[0];  // bits[1] == 0;
+    temperature = bits[2];  // bits[3] == 0;
+
+    // TEST CHECKSUM
+    // bits[1] && bits[3] both 0
+    uint8_t sum = bits[0] + bits[2];
+    if (bits[4] != sum) return DHTLIB_ERROR_CHECKSUM;
+
+    return DHTLIB_OK;
+}
+
+
+// return values:
+// DHTLIB_OK
+// DHTLIB_ERROR_CHECKSUM
+// DHTLIB_ERROR_TIMEOUT
+int dht::read(uint8_t pin)
+{
+    // READ VALUES
+    int rv = _readSensor(pin, DHTLIB_DHT_WAKEUP);
+    if (rv != DHTLIB_OK)
+    {
+        humidity    = DHTLIB_INVALID_VALUE;  // invalid value, or is NaN prefered?
+        temperature = DHTLIB_INVALID_VALUE;  // invalid value
+        return rv; // propagate error value
+    }
+
+    // CONVERT AND STORE
+    humidity = word(bits[0], bits[1]) * 0.1;
+    temperature = word(bits[2] & 0x7F, bits[3]) * 0.1;
+    if (bits[2] & 0x80)  // negative temperature
+    {
+        temperature = -temperature;
+    }
+
+    // TEST CHECKSUM
+    uint8_t sum = bits[0] + bits[1] + bits[2] + bits[3];
+    if (bits[4] != sum)
+    {
+        return DHTLIB_ERROR_CHECKSUM;
+    }
+    return DHTLIB_OK;
+}
+
+/////////////////////////////////////////////////////
+//
+// PRIVATE
+//
+
+// return values:
+// DHTLIB_OK
+// DHTLIB_ERROR_TIMEOUT
+int dht::_readSensor(uint8_t pin, uint8_t wakeupDelay)
+{
+    // INIT BUFFERVAR TO RECEIVE DATA
+    uint8_t mask = 128;
+    uint8_t idx = 0;
+
+    // replace digitalRead() with Direct Port Reads.
+    // reduces footprint ~100 bytes => portability issue?
+    // direct port read is about 3x faster
+	uint8_t bit = digitalPinToBitMask(pin);
+	uint8_t port = digitalPinToPort(pin);
+    volatile uint8_t *PIR = portInputRegister(port);
+
+    // EMPTY BUFFER
+    for (uint8_t i = 0; i < 5; i++) bits[i] = 0;
+
+    // REQUEST SAMPLE
+    pinMode(pin, OUTPUT);
+    digitalWrite(pin, LOW); // T-be 
+    delay(wakeupDelay);
+    digitalWrite(pin, HIGH);   // T-go
+    delayMicroseconds(40);
+    pinMode(pin, INPUT);
+
+    // GET ACKNOWLEDGE or TIMEOUT
+    uint16_t loopCntLOW = DHTLIB_TIMEOUT;
+    while ((*PIR & bit) == LOW )  // T-rel
+    {
+        if (--loopCntLOW == 0) return DHTLIB_ERROR_TIMEOUT;
+    }
+
+    uint16_t loopCntHIGH = DHTLIB_TIMEOUT;
+    while ((*PIR & bit) != LOW )  // T-reh
+    {
+        if (--loopCntHIGH == 0) return DHTLIB_ERROR_TIMEOUT;
+    }
+
+    // READ THE OUTPUT - 40 BITS => 5 BYTES
+    for (uint8_t i = 40; i != 0; i--)
+    {
+        loopCntLOW = DHTLIB_TIMEOUT;
+        while ((*PIR & bit) == LOW )
+        {
+            if (--loopCntLOW == 0) return DHTLIB_ERROR_TIMEOUT;
+        }
+
+        uint32_t t = micros();
+
+        loopCntHIGH = DHTLIB_TIMEOUT;
+        while ((*PIR & bit) != LOW )
+        {
+            if (--loopCntHIGH == 0) return DHTLIB_ERROR_TIMEOUT;
+        }
+
+        if ((micros() - t) > 40)
+        { 
+            bits[idx] |= mask;
+        }
+        mask >>= 1;
+        if (mask == 0)   // next byte?
+        {
+            mask = 128;
+            idx++;
+        }
+    }
+    pinMode(pin, OUTPUT);
+    digitalWrite(pin, HIGH);
+
+    return DHTLIB_OK;
+}
+//
+// END OF FILE
+//
+

@@ -1,0 +1,415 @@
+avrdude: Version 6.0.1, compiled on Apr  3 2014 at 22:55:35
+         Copyright (c) 2000-2005 Brian Dean, http://www.bdmicro.com/
+         Copyright (c) 2007-2009 Joerg Wunsch
+
+         System wide configuration file is "/home/aslok/Arduino/arduino-1.5.8/hardware/tools/avr/etc/avrdude.conf"
+         User configuration file is "/home/aslok/.avrduderc"
+         User configuration file does not exist or is not a regular file, skipping
+
+         Using Port                    : usb
+         Using Programmer              : usbasp
+avrdude: usbasp_open("usb")
+avrdude: seen device from vendor ->www.fischl.de<-
+avrdude: seen product ->USBasp<-
+         AVR Part                      : ATmega328P
+         Chip Erase delay              : 9000 us
+         PAGEL                         : PD7
+         BS2                           : PC2
+         RESET disposition             : dedicated
+         RETRY pulse                   : SCK
+         serial program mode           : yes
+         parallel program mode         : yes
+         Timeout                       : 200
+         StabDelay                     : 100
+         CmdexeDelay                   : 25
+         SyncLoops                     : 32
+         ByteDelay                     : 0
+         PollIndex                     : 3
+         PollValue                     : 0x53
+         Memory Detail                 :
+
+                                  Block Poll               Page                       Polled
+           Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+           eeprom        65    20     4    0 no       1024    4      0  3600  3600 0xff 0xff
+                                  Block Poll               Page                       Polled
+           Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+           flash         65     6   128    0 yes     32768  128    256  4500  4500 0xff 0xff
+                                  Block Poll               Page                       Polled
+           Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+           lfuse          0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+                                  Block Poll               Page                       Polled
+           Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+           hfuse          0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+                                  Block Poll               Page                       Polled
+           Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+           efuse          0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+                                  Block Poll               Page                       Polled
+           Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+           lock           0     0     0    0 no          1    0      0  4500  4500 0x00 0x00
+                                  Block Poll               Page                       Polled
+           Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+           calibration    0     0     0    0 no          1    0      0     0     0 0x00 0x00
+                                  Block Poll               Page                       Polled
+           Memory Type Mode Delay Size  Indx Paged  Size   Size #Pages MinW  MaxW   ReadBack
+           ----------- ---- ----- ----- ---- ------ ------ ---- ------ ----- ----- ---------
+           signature      0     0     0    0 no          3    0      0     0     0 0x00 0x00
+
+         Programmer Type : usbasp
+         Description     : USBasp, http://www.fischl.de/usbasp/
+
+avrdude: usbasp_initialize()
+avrdude: usbasp_transmit("USBASP_FUNC_GETCAPABILITIES", 0x00, 0x00, 0x00, 0x00)
+avrdude: usbasp_spi_set_sck_period(0)
+avrdude: auto set sck period (because given equals null)
+avrdude: usbasp_transmit("USBASP_FUNC_SETISPSCK", 0x00, 0x00, 0x00, 0x00)
+avrdude: warning: cannot set sck period. please check for usbasp firmware update.
+avrdude: usbasp_transmit("USBASP_FUNC_CONNECT", 0x00, 0x00, 0x00, 0x00)
+avrdude: usbasp_program_enable()
+avrdude: usbasp_transmit("USBASP_FUNC_ENABLEPROG", 0x00, 0x00, 0x00, 0x00)
+         <= [00] 
+avrdude: AVR device initialized and ready to accept instructions
+
+Reading | avrdude: usbasp_cpi_cmd(0x30, 0x00, 0x00, 0x00)...
+avrdude: usbasp_transmit("USBASP_FUNC_TRANSMIT", 0x30, 0x00, 0x00, 0x00)
+         <= [00] [30] [00] [1e] 
+avrdude: usbasp_cpi_cmd() => 0x00, 0x30, 0x00, 0x1e
+avrdude: usbasp_cpi_cmd(0x30, 0x00, 0x01, 0x00)...
+avrdude: usbasp_transmit("USBASP_FUNC_TRANSMIT", 0x30, 0x00, 0x01, 0x00)
+         <= [00] [30] [00] [95] 
+avrdude: usbasp_cpi_cmd() => 0x00, 0x30, 0x00, 0x95
+################avrdude: usbasp_cpi_cmd(0x30, 0x00, 0x02, 0x00)...
+avrdude: usbasp_transmit("USBASP_FUNC_TRANSMIT", 0x30, 0x00, 0x02, 0x00)
+         <= [00] [30] [00] [0f] 
+avrdude: usbasp_cpi_cmd() => 0x00, 0x30, 0x00, 0x0f
+################################## | 100% 0.01s
+
+avrdude: Device signature = 0x1e950f
+avrdude: NOTE: "flash" memory has been specified, an erase cycle will be performed
+         To disable this feature, specify the -D option.
+avrdude: erasing chip
+avrdude: usbasp_chip_erase()
+avrdude: usbasp_cpi_cmd(0xac, 0x80, 0x00, 0x00)...
+avrdude: usbasp_transmit("USBASP_FUNC_TRANSMIT", 0xac, 0x80, 0x00, 0x00)
+         <= [00] [ac] [80] [00] 
+avrdude: usbasp_cpi_cmd() => 0x00, 0xac, 0x80, 0x00
+avrdude: usbasp_initialize()
+avrdude: usbasp_transmit("USBASP_FUNC_GETCAPABILITIES", 0x00, 0x00, 0x00, 0x00)
+avrdude: usbasp_spi_set_sck_period(0)
+avrdude: auto set sck period (because given equals null)
+avrdude: usbasp_transmit("USBASP_FUNC_SETISPSCK", 0x00, 0x00, 0x00, 0x00)
+avrdude: warning: cannot set sck period. please check for usbasp firmware update.
+avrdude: usbasp_transmit("USBASP_FUNC_CONNECT", 0x00, 0x00, 0x00, 0x00)
+avrdude: usbasp_program_enable()
+avrdude: usbasp_transmit("USBASP_FUNC_ENABLEPROG", 0x00, 0x00, 0x00, 0x00)
+         <= [00] 
+avrdude: reading input file "/tmp/build3864915164753528280.tmp/sketch_jan29a.cpp.hex"
+avrdude: writing flash (450 bytes):
+
+Writing | avrdude: usbasp_program_paged_write("flash", 0x0, 128)
+avrdude: usbasp_transmit("USBASP_FUNC_SETLONGADDRESS", 0x00, 0x00, 0x00, 0x00)
+avrdude: usbasp_transmit("USBASP_FUNC_WRITEFLASH", 0x00, 0x00, 0x80, 0x03)
+          => [0c] [94] [34] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [5a] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [11] [24] [1f] [be] [cf] [ef] [d8] [e0] [de] [bf] [cd] [bf] [21] [e0] [a0] [e0] [b1] [e0] [01] [c0] [1d] [92] [a9] [30] 
+############avrdude: usbasp_program_paged_write("flash", 0x80, 128)
+avrdude: usbasp_transmit("USBASP_FUNC_SETLONGADDRESS", 0x80, 0x00, 0x00, 0x00)
+avrdude: usbasp_transmit("USBASP_FUNC_WRITEFLASH", 0x80, 0x00, 0x80, 0x03)
+          => [b2] [07] [e1] [f7] [0e] [94] [4b] [00] [0c] [94] [df] [00] [0c] [94] [00] [00] [08] [95] [08] [95] [08] [95] [0e] [94] [a4] [00] [0e] [94] [4a] [00] [0e] [94] [48] [00] [c0] [e0] [d0] [e0] [0e] [94] [49] [00] [20] [97] [e1] [f3] [0e] [94] [00] [00] [f9] [cf] [1f] [92] [0f] [92] [0f] [b6] [0f] [92] [11] [24] [2f] [93] [3f] [93] [8f] [93] [9f] [93] [af] [93] [bf] [93] [80] [91] [01] [01] [90] [91] [02] [01] [a0] [91] [03] [01] [b0] [91] [04] [01] [30] [91] [00] [01] [23] [e0] [23] [0f] [2d] [37] [20] [f4] [01] [96] [a1] [1d] [b1] [1d] [05] [c0] [26] [e8] [23] [0f] [02] [96] [a1] [1d] [b1] [1d] [20] [93] [00] [01] [80] [93] [01] [01] 
+#############avrdude: usbasp_program_paged_write("flash", 0x100, 128)
+avrdude: usbasp_transmit("USBASP_FUNC_SETLONGADDRESS", 0x00, 0x01, 0x00, 0x00)
+avrdude: usbasp_transmit("USBASP_FUNC_WRITEFLASH", 0x00, 0x01, 0x80, 0x03)
+          => [90] [93] [02] [01] [a0] [93] [03] [01] [b0] [93] [04] [01] [80] [91] [05] [01] [90] [91] [06] [01] [a0] [91] [07] [01] [b0] [91] [08] [01] [01] [96] [a1] [1d] [b1] [1d] [80] [93] [05] [01] [90] [93] [06] [01] [a0] [93] [07] [01] [b0] [93] [08] [01] [bf] [91] [af] [91] [9f] [91] [8f] [91] [3f] [91] [2f] [91] [0f] [90] [0f] [be] [0f] [90] [1f] [90] [18] [95] [78] [94] [84] [b5] [82] [60] [84] [bd] [84] [b5] [81] [60] [84] [bd] [85] [b5] [82] [60] [85] [bd] [85] [b5] [81] [60] [85] [bd] [ee] [e6] [f0] [e0] [80] [81] [81] [60] [80] [83] [e1] [e8] [f0] [e0] [10] [82] [80] [81] [82] [60] [80] [83] [80] [81] [81] [60] [80] [83] [e0] [e8] 
+############avrdude: usbasp_program_paged_write("flash", 0x180, 128)
+avrdude: usbasp_transmit("USBASP_FUNC_SETLONGADDRESS", 0x80, 0x01, 0x00, 0x00)
+avrdude: usbasp_transmit("USBASP_FUNC_WRITEFLASH", 0x80, 0x01, 0x80, 0x03)
+          => [f0] [e0] [80] [81] [81] [60] [80] [83] [e1] [eb] [f0] [e0] [80] [81] [84] [60] [80] [83] [e0] [eb] [f0] [e0] [80] [81] [81] [60] [80] [83] [ea] [e7] [f0] [e0] [80] [81] [84] [60] [80] [83] [80] [81] [82] [60] [80] [83] [80] [81] [81] [60] [80] [83] [80] [81] [80] [68] [80] [83] [10] [92] [c1] [00] [08] [95] [f8] [94] [ff] [cf] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] 
+############# | 100% 0.42s
+
+avrdude: 450 bytes of flash written
+avrdude: verifying flash memory against /tmp/build3864915164753528280.tmp/sketch_jan29a.cpp.hex:
+avrdude: load data flash data from input file /tmp/build3864915164753528280.tmp/sketch_jan29a.cpp.hex:
+avrdude: input file /tmp/build3864915164753528280.tmp/sketch_jan29a.cpp.hex contains 450 bytes
+avrdude: reading on-chip flash data:
+
+Reading | avrdude: usbasp_program_paged_load("flash", 0x0, 128)
+avrdude: usbasp_transmit("USBASP_FUNC_SETLONGADDRESS", 0x00, 0x00, 0x00, 0x00)
+avrdude: usbasp_transmit("USBASP_FUNC_READFLASH", 0x00, 0x00, 0x00, 0x00)
+         <= [0c] [94] [34] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [5a] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [0c] [94] [46] [00] [11] [24] [1f] [be] [cf] [ef] [d8] [e0] [de] [bf] [cd] [bf] [21] [e0] [a0] [e0] [b1] [e0] [01] [c0] [1d] [92] [a9] [30] 
+############avrdude: usbasp_program_paged_load("flash", 0x80, 128)
+avrdude: usbasp_transmit("USBASP_FUNC_SETLONGADDRESS", 0x80, 0x00, 0x00, 0x00)
+avrdude: usbasp_transmit("USBASP_FUNC_READFLASH", 0x80, 0x00, 0x00, 0x00)
+         <= [b2] [07] [e1] [f7] [0e] [94] [4b] [00] [0c] [94] [df] [00] [0c] [94] [00] [00] [08] [95] [08] [95] [08] [95] [0e] [94] [a4] [00] [0e] [94] [4a] [00] [0e] [94] [48] [00] [c0] [e0] [d0] [e0] [0e] [94] [49] [00] [20] [97] [e1] [f3] [0e] [94] [00] [00] [f9] [cf] [1f] [92] [0f] [92] [0f] [b6] [0f] [92] [11] [24] [2f] [93] [3f] [93] [8f] [93] [9f] [93] [af] [93] [bf] [93] [80] [91] [01] [01] [90] [91] [02] [01] [a0] [91] [03] [01] [b0] [91] [04] [01] [30] [91] [00] [01] [23] [e0] [23] [0f] [2d] [37] [20] [f4] [01] [96] [a1] [1d] [b1] [1d] [05] [c0] [26] [e8] [23] [0f] [02] [96] [a1] [1d] [b1] [1d] [20] [93] [00] [01] [80] [93] [01] [01] 
+#############avrdude: usbasp_program_paged_load("flash", 0x100, 128)
+avrdude: usbasp_transmit("USBASP_FUNC_SETLONGADDRESS", 0x00, 0x01, 0x00, 0x00)
+avrdude: usbasp_transmit("USBASP_FUNC_READFLASH", 0x00, 0x01, 0x00, 0x00)
+         <= [90] [93] [02] [01] [a0] [93] [03] [01] [b0] [93] [04] [01] [80] [91] [05] [01] [90] [91] [06] [01] [a0] [91] [07] [01] [b0] [91] [08] [01] [01] [96] [a1] [1d] [b1] [1d] [80] [93] [05] [01] [90] [93] [06] [01] [a0] [93] [07] [01] [b0] [93] [08] [01] [bf] [91] [af] [91] [9f] [91] [8f] [91] [3f] [91] [2f] [91] [0f] [90] [0f] [be] [0f] [90] [1f] [90] [18] [95] [78] [94] [84] [b5] [82] [60] [84] [bd] [84] [b5] [81] [60] [84] [bd] [85] [b5] [82] [60] [85] [bd] [85] [b5] [81] [60] [85] [bd] [ee] [e6] [f0] [e0] [80] [81] [81] [60] [80] [83] [e1] [e8] [f0] [e0] [10] [82] [80] [81] [82] [60] [80] [83] [80] [81] [81] [60] [80] [83] [e0] [e8] 
+############avrdude: usbasp_program_paged_load("flash", 0x180, 128)
+avrdude: usbasp_transmit("USBASP_FUNC_SETLONGADDRESS", 0x80, 0x01, 0x00, 0x00)
+avrdude: usbasp_transmit("USBASP_FUNC_READFLASH", 0x80, 0x01, 0x00, 0x00)
+         <= [f0] [e0] [80] [81] [81] [60] [80] [83] [e1] [eb] [f0] [e0] [80] [81] [84] [60] [80] [83] [e0] [eb] [f0] [e0] [80] [81] [81] [60] [80] [83] [ea] [e7] [f0] [e0] [80] [81] [84] [60] [80] [83] [80] [81] [82] [60] [80] [83] [80] [81] [81] [60] [80] [83] [80] [81] [80] [68] [80] [83] [10] [92] [c1] [00] [08] [95] [f8] [94] [ff] [cf] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] [ff] 
+############# | 100% 0.31s
+
+avrdude: avr_read(): skipping page 4: no interesting data
+avrdude: avr_read(): skipping page 5: no interesting data
+avrdude: avr_read(): skipping page 6: no interesting data
+avrdude: avr_read(): skipping page 7: no interesting data
+avrdude: avr_read(): skipping page 8: no interesting data
+avrdude: avr_read(): skipping page 9: no interesting data
+avrdude: avr_read(): skipping page 10: no interesting data
+avrdude: avr_read(): skipping page 11: no interesting data
+avrdude: avr_read(): skipping page 12: no interesting data
+avrdude: avr_read(): skipping page 13: no interesting data
+avrdude: avr_read(): skipping page 14: no interesting data
+avrdude: avr_read(): skipping page 15: no interesting data
+avrdude: avr_read(): skipping page 16: no interesting data
+avrdude: avr_read(): skipping page 17: no interesting data
+avrdude: avr_read(): skipping page 18: no interesting data
+avrdude: avr_read(): skipping page 19: no interesting data
+avrdude: avr_read(): skipping page 20: no interesting data
+avrdude: avr_read(): skipping page 21: no interesting data
+avrdude: avr_read(): skipping page 22: no interesting data
+avrdude: avr_read(): skipping page 23: no interesting data
+avrdude: avr_read(): skipping page 24: no interesting data
+avrdude: avr_read(): skipping page 25: no interesting data
+avrdude: avr_read(): skipping page 26: no interesting data
+avrdude: avr_read(): skipping page 27: no interesting data
+avrdude: avr_read(): skipping page 28: no interesting data
+avrdude: avr_read(): skipping page 29: no interesting data
+avrdude: avr_read(): skipping page 30: no interesting data
+avrdude: avr_read(): skipping page 31: no interesting data
+avrdude: avr_read(): skipping page 32: no interesting data
+avrdude: avr_read(): skipping page 33: no interesting data
+avrdude: avr_read(): skipping page 34: no interesting data
+avrdude: avr_read(): skipping page 35: no interesting data
+avrdude: avr_read(): skipping page 36: no interesting data
+avrdude: avr_read(): skipping page 37: no interesting data
+avrdude: avr_read(): skipping page 38: no interesting data
+avrdude: avr_read(): skipping page 39: no interesting data
+avrdude: avr_read(): skipping page 40: no interesting data
+avrdude: avr_read(): skipping page 41: no interesting data
+avrdude: avr_read(): skipping page 42: no interesting data
+avrdude: avr_read(): skipping page 43: no interesting data
+avrdude: avr_read(): skipping page 44: no interesting data
+avrdude: avr_read(): skipping page 45: no interesting data
+avrdude: avr_read(): skipping page 46: no interesting data
+avrdude: avr_read(): skipping page 47: no interesting data
+avrdude: avr_read(): skipping page 48: no interesting data
+avrdude: avr_read(): skipping page 49: no interesting data
+avrdude: avr_read(): skipping page 50: no interesting data
+avrdude: avr_read(): skipping page 51: no interesting data
+avrdude: avr_read(): skipping page 52: no interesting data
+avrdude: avr_read(): skipping page 53: no interesting data
+avrdude: avr_read(): skipping page 54: no interesting data
+avrdude: avr_read(): skipping page 55: no interesting data
+avrdude: avr_read(): skipping page 56: no interesting data
+avrdude: avr_read(): skipping page 57: no interesting data
+avrdude: avr_read(): skipping page 58: no interesting data
+avrdude: avr_read(): skipping page 59: no interesting data
+avrdude: avr_read(): skipping page 60: no interesting data
+avrdude: avr_read(): skipping page 61: no interesting data
+avrdude: avr_read(): skipping page 62: no interesting data
+avrdude: avr_read(): skipping page 63: no interesting data
+avrdude: avr_read(): skipping page 64: no interesting data
+avrdude: avr_read(): skipping page 65: no interesting data
+avrdude: avr_read(): skipping page 66: no interesting data
+avrdude: avr_read(): skipping page 67: no interesting data
+avrdude: avr_read(): skipping page 68: no interesting data
+avrdude: avr_read(): skipping page 69: no interesting data
+avrdude: avr_read(): skipping page 70: no interesting data
+avrdude: avr_read(): skipping page 71: no interesting data
+avrdude: avr_read(): skipping page 72: no interesting data
+avrdude: avr_read(): skipping page 73: no interesting data
+avrdude: avr_read(): skipping page 74: no interesting data
+avrdude: avr_read(): skipping page 75: no interesting data
+avrdude: avr_read(): skipping page 76: no interesting data
+avrdude: avr_read(): skipping page 77: no interesting data
+avrdude: avr_read(): skipping page 78: no interesting data
+avrdude: avr_read(): skipping page 79: no interesting data
+avrdude: avr_read(): skipping page 80: no interesting data
+avrdude: avr_read(): skipping page 81: no interesting data
+avrdude: avr_read(): skipping page 82: no interesting data
+avrdude: avr_read(): skipping page 83: no interesting data
+avrdude: avr_read(): skipping page 84: no interesting data
+avrdude: avr_read(): skipping page 85: no interesting data
+avrdude: avr_read(): skipping page 86: no interesting data
+avrdude: avr_read(): skipping page 87: no interesting data
+avrdude: avr_read(): skipping page 88: no interesting data
+avrdude: avr_read(): skipping page 89: no interesting data
+avrdude: avr_read(): skipping page 90: no interesting data
+avrdude: avr_read(): skipping page 91: no interesting data
+avrdude: avr_read(): skipping page 92: no interesting data
+avrdude: avr_read(): skipping page 93: no interesting data
+avrdude: avr_read(): skipping page 94: no interesting data
+avrdude: avr_read(): skipping page 95: no interesting data
+avrdude: avr_read(): skipping page 96: no interesting data
+avrdude: avr_read(): skipping page 97: no interesting data
+avrdude: avr_read(): skipping page 98: no interesting data
+avrdude: avr_read(): skipping page 99: no interesting data
+avrdude: avr_read(): skipping page 100: no interesting data
+avrdude: avr_read(): skipping page 101: no interesting data
+avrdude: avr_read(): skipping page 102: no interesting data
+avrdude: avr_read(): skipping page 103: no interesting data
+avrdude: avr_read(): skipping page 104: no interesting data
+avrdude: avr_read(): skipping page 105: no interesting data
+avrdude: avr_read(): skipping page 106: no interesting data
+avrdude: avr_read(): skipping page 107: no interesting data
+avrdude: avr_read(): skipping page 108: no interesting data
+avrdude: avr_read(): skipping page 109: no interesting data
+avrdude: avr_read(): skipping page 110: no interesting data
+avrdude: avr_read(): skipping page 111: no interesting data
+avrdude: avr_read(): skipping page 112: no interesting data
+avrdude: avr_read(): skipping page 113: no interesting data
+avrdude: avr_read(): skipping page 114: no interesting data
+avrdude: avr_read(): skipping page 115: no interesting data
+avrdude: avr_read(): skipping page 116: no interesting data
+avrdude: avr_read(): skipping page 117: no interesting data
+avrdude: avr_read(): skipping page 118: no interesting data
+avrdude: avr_read(): skipping page 119: no interesting data
+avrdude: avr_read(): skipping page 120: no interesting data
+avrdude: avr_read(): skipping page 121: no interesting data
+avrdude: avr_read(): skipping page 122: no interesting data
+avrdude: avr_read(): skipping page 123: no interesting data
+avrdude: avr_read(): skipping page 124: no interesting data
+avrdude: avr_read(): skipping page 125: no interesting data
+avrdude: avr_read(): skipping page 126: no interesting data
+avrdude: avr_read(): skipping page 127: no interesting data
+avrdude: avr_read(): skipping page 128: no interesting data
+avrdude: avr_read(): skipping page 129: no interesting data
+avrdude: avr_read(): skipping page 130: no interesting data
+avrdude: avr_read(): skipping page 131: no interesting data
+avrdude: avr_read(): skipping page 132: no interesting data
+avrdude: avr_read(): skipping page 133: no interesting data
+avrdude: avr_read(): skipping page 134: no interesting data
+avrdude: avr_read(): skipping page 135: no interesting data
+avrdude: avr_read(): skipping page 136: no interesting data
+avrdude: avr_read(): skipping page 137: no interesting data
+avrdude: avr_read(): skipping page 138: no interesting data
+avrdude: avr_read(): skipping page 139: no interesting data
+avrdude: avr_read(): skipping page 140: no interesting data
+avrdude: avr_read(): skipping page 141: no interesting data
+avrdude: avr_read(): skipping page 142: no interesting data
+avrdude: avr_read(): skipping page 143: no interesting data
+avrdude: avr_read(): skipping page 144: no interesting data
+avrdude: avr_read(): skipping page 145: no interesting data
+avrdude: avr_read(): skipping page 146: no interesting data
+avrdude: avr_read(): skipping page 147: no interesting data
+avrdude: avr_read(): skipping page 148: no interesting data
+avrdude: avr_read(): skipping page 149: no interesting data
+avrdude: avr_read(): skipping page 150: no interesting data
+avrdude: avr_read(): skipping page 151: no interesting data
+avrdude: avr_read(): skipping page 152: no interesting data
+avrdude: avr_read(): skipping page 153: no interesting data
+avrdude: avr_read(): skipping page 154: no interesting data
+avrdude: avr_read(): skipping page 155: no interesting data
+avrdude: avr_read(): skipping page 156: no interesting data
+avrdude: avr_read(): skipping page 157: no interesting data
+avrdude: avr_read(): skipping page 158: no interesting data
+avrdude: avr_read(): skipping page 159: no interesting data
+avrdude: avr_read(): skipping page 160: no interesting data
+avrdude: avr_read(): skipping page 161: no interesting data
+avrdude: avr_read(): skipping page 162: no interesting data
+avrdude: avr_read(): skipping page 163: no interesting data
+avrdude: avr_read(): skipping page 164: no interesting data
+avrdude: avr_read(): skipping page 165: no interesting data
+avrdude: avr_read(): skipping page 166: no interesting data
+avrdude: avr_read(): skipping page 167: no interesting data
+avrdude: avr_read(): skipping page 168: no interesting data
+avrdude: avr_read(): skipping page 169: no interesting data
+avrdude: avr_read(): skipping page 170: no interesting data
+avrdude: avr_read(): skipping page 171: no interesting data
+avrdude: avr_read(): skipping page 172: no interesting data
+avrdude: avr_read(): skipping page 173: no interesting data
+avrdude: avr_read(): skipping page 174: no interesting data
+avrdude: avr_read(): skipping page 175: no interesting data
+avrdude: avr_read(): skipping page 176: no interesting data
+avrdude: avr_read(): skipping page 177: no interesting data
+avrdude: avr_read(): skipping page 178: no interesting data
+avrdude: avr_read(): skipping page 179: no interesting data
+avrdude: avr_read(): skipping page 180: no interesting data
+avrdude: avr_read(): skipping page 181: no interesting data
+avrdude: avr_read(): skipping page 182: no interesting data
+avrdude: avr_read(): skipping page 183: no interesting data
+avrdude: avr_read(): skipping page 184: no interesting data
+avrdude: avr_read(): skipping page 185: no interesting data
+avrdude: avr_read(): skipping page 186: no interesting data
+avrdude: avr_read(): skipping page 187: no interesting data
+avrdude: avr_read(): skipping page 188: no interesting data
+avrdude: avr_read(): skipping page 189: no interesting data
+avrdude: avr_read(): skipping page 190: no interesting data
+avrdude: avr_read(): skipping page 191: no interesting data
+avrdude: avr_read(): skipping page 192: no interesting data
+avrdude: avr_read(): skipping page 193: no interesting data
+avrdude: avr_read(): skipping page 194: no interesting data
+avrdude: avr_read(): skipping page 195: no interesting data
+avrdude: avr_read(): skipping page 196: no interesting data
+avrdude: avr_read(): skipping page 197: no interesting data
+avrdude: avr_read(): skipping page 198: no interesting data
+avrdude: avr_read(): skipping page 199: no interesting data
+avrdude: avr_read(): skipping page 200: no interesting data
+avrdude: avr_read(): skipping page 201: no interesting data
+avrdude: avr_read(): skipping page 202: no interesting data
+avrdude: avr_read(): skipping page 203: no interesting data
+avrdude: avr_read(): skipping page 204: no interesting data
+avrdude: avr_read(): skipping page 205: no interesting data
+avrdude: avr_read(): skipping page 206: no interesting data
+avrdude: avr_read(): skipping page 207: no interesting data
+avrdude: avr_read(): skipping page 208: no interesting data
+avrdude: avr_read(): skipping page 209: no interesting data
+avrdude: avr_read(): skipping page 210: no interesting data
+avrdude: avr_read(): skipping page 211: no interesting data
+avrdude: avr_read(): skipping page 212: no interesting data
+avrdude: avr_read(): skipping page 213: no interesting data
+avrdude: avr_read(): skipping page 214: no interesting data
+avrdude: avr_read(): skipping page 215: no interesting data
+avrdude: avr_read(): skipping page 216: no interesting data
+avrdude: avr_read(): skipping page 217: no interesting data
+avrdude: avr_read(): skipping page 218: no interesting data
+avrdude: avr_read(): skipping page 219: no interesting data
+avrdude: avr_read(): skipping page 220: no interesting data
+avrdude: avr_read(): skipping page 221: no interesting data
+avrdude: avr_read(): skipping page 222: no interesting data
+avrdude: avr_read(): skipping page 223: no interesting data
+avrdude: avr_read(): skipping page 224: no interesting data
+avrdude: avr_read(): skipping page 225: no interesting data
+avrdude: avr_read(): skipping page 226: no interesting data
+avrdude: avr_read(): skipping page 227: no interesting data
+avrdude: avr_read(): skipping page 228: no interesting data
+avrdude: avr_read(): skipping page 229: no interesting data
+avrdude: avr_read(): skipping page 230: no interesting data
+avrdude: avr_read(): skipping page 231: no interesting data
+avrdude: avr_read(): skipping page 232: no interesting data
+avrdude: avr_read(): skipping page 233: no interesting data
+avrdude: avr_read(): skipping page 234: no interesting data
+avrdude: avr_read(): skipping page 235: no interesting data
+avrdude: avr_read(): skipping page 236: no interesting data
+avrdude: avr_read(): skipping page 237: no interesting data
+avrdude: avr_read(): skipping page 238: no interesting data
+avrdude: avr_read(): skipping page 239: no interesting data
+avrdude: avr_read(): skipping page 240: no interesting data
+avrdude: avr_read(): skipping page 241: no interesting data
+avrdude: avr_read(): skipping page 242: no interesting data
+avrdude: avr_read(): skipping page 243: no interesting data
+avrdude: avr_read(): skipping page 244: no interesting data
+avrdude: avr_read(): skipping page 245: no interesting data
+avrdude: avr_read(): skipping page 246: no interesting data
+avrdude: avr_read(): skipping page 247: no interesting data
+avrdude: avr_read(): skipping page 248: no interesting data
+avrdude: avr_read(): skipping page 249: no interesting data
+avrdude: avr_read(): skipping page 250: no interesting data
+avrdude: avr_read(): skipping page 251: no interesting data
+avrdude: avr_read(): skipping page 252: no interesting data
+avrdude: avr_read(): skipping page 253: no interesting data
+avrdude: avr_read(): skipping page 254: no interesting data
+avrdude: avr_read(): skipping page 255: no interesting data
+avrdude: verifying ...
+avrdude: 450 bytes of flash verified
+avrdude: usbasp_close()
+avrdude: usbasp_transmit("USBASP_FUNC_DISCONNECT", 0x00, 0x00, 0x00, 0x00)
+
+avrdude done.  Thank you.
+

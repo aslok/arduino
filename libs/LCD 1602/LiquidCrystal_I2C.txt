@@ -1,0 +1,132 @@
+I2C/TWI LCD1602 Module (SKU: DFR0063)
+Jump to: navigation, search
+Contents
+
+    1 Introduction
+    2 Specification
+    3 Contrast Adjust
+    4 Connection Diagram
+    5 Library Support Functions
+    6 Sample Code
+    7 Projects
+
+Introduction
+I2C/TWI LCD1602 Module (SKU: DFR0063)
+
+This is another great LCD display from DFRobot. With the limited pin resources, your project may be out of resources using normal LCD shield. With this I2C interface LCD module, you only need 2 lines (I2C) to display the information. If you already has I2C devices in your project, this LCD module actually cost no more resources at all. Fantastic for Arduino based project.
+
+
+Specification
+
+    Interface: I2C
+    I2C Address: 0x27
+    Back lit (Blue with white char color)
+    Supply voltage: 5V
+    Weight:40 gram
+
+
+Contrast Adjust
+
+The contrast can be adjusted by the potential-meter displayed in the following picture.
+DFR0063 Back.jpg
+
+
+Connection Diagram
+I2C LCD Connection Diagram
+
+connect SDA to pin A4 and SCL to pin A5 on your Arduino.
+Library Support Functions
+
+    LiquidCrystal()
+    begin()
+    clear()
+    home()
+    setCursor()
+    write()
+    print()
+    cursor()
+    noCursor()
+    blink()
+    noBlink()
+    display()
+    noDisplay()
+    scrollDisplayLeft()
+    scrollDisplayRight()
+    autoscroll()
+    noAutoscroll()
+    leftToRight()
+    rightToLeft()
+    createChar()
+
+
+
+Sample Code
+
+//DFRobot.com
+//Compatible with the Arduino IDE 1.0
+//Library version:1.1
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+ 
+LiquidCrystal_I2C lcd(0x27,16,2);  // set the LCD address to 0x27 for a 16 chars and 2 line display
+ 
+void setup()
+{
+  lcd.init();                      // initialize the lcd
+  
+  // Print a message to the LCD.
+  lcd.backlight();
+  lcd.print("Hello, world!");
+}
+ 
+void loop()
+{
+}
+
+
+Sample sketch: Control the back light of the I2C LCD1602 Module
+
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+ 
+#if defined(ARDUINO) && ARDUINO >= 100
+#define printByte(args)  write(args);
+#else
+#define printByte(args)  print(args,BYTE);
+#endif
+ 
+LiquidCrystal_I2C lcd(0x27,16,2);  // set the LCD address to 0x27 for a 16 chars and 2 line display
+ 
+void setup(){
+   
+  lcd.init();                      // initialize the lcd
+  lcd.backlight();
+   
+  lcd.home();
+   
+  lcd.print("Hello world...");
+  lcd.setCursor(0, 1);
+  lcd.print("dfrobot.com");
+   
+}
+ 
+int backlightState = LOW;
+long previousMillis = 0;
+long interval = 1000;
+   
+void loop(){
+   
+  unsigned long currentMillis = millis();
+  
+  if(currentMillis - previousMillis > interval) {
+    previousMillis = currentMillis;  
+ 
+    if (backlightState == LOW)
+      backlightState = HIGH;
+    else
+      backlightState = LOW;
+ 
+    if(backlightState == HIGH)  lcd.backlight();
+    else lcd.noBacklight();
+  }
+}

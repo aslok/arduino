@@ -1,0 +1,4 @@
+screen -d -m -S arduino /dev/tty.wch\ ch341\ USB\=\>RS232\ 14120 57600
+screen -S arduino -p 0 -X stuff 1
+screen -S arduino -p 0 -X stuff 0
+screen -S arduino -p 0 -X quit

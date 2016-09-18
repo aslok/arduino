@@ -1,21 +1,21 @@
-						8 bit
-boolean 	0		1			simple logical true/false
-char 		-128		127			signed number from -128 to 127. The compiler will attempt to interpret
-							this data type as a character in some circumstances, which may yield 
-							unexpected results
-unsigned char 	0		255			same as ‘byte’; if this is what you’re after, you should use ‘byte’ instead, 
-byte 		unsigned char				unsigned number from 0-255
-							for reasons of clarity
-						16 bit
-int 		-32,768		32,767			signed number from -32768 to 32767. This is most commonly what you see 
-							used for general purpose variables in Arduino example code provided with the IDE
-unsigned int 	0		65,535			the same as ‘word’. Use ‘word’ instead for clarity and brevity
-word 		unsigned int				unsigned number from 0-65535
-						32 bit
-unsigned long 	0		4,294,967,295		unsigned number from 0-4,294,967,295. The most common usage of this is to store 
-							the result of the millis() function, which returns the number of milliseconds 
-							the current code has been running
-long 		-2,147,483,648	2,147,483,647		signed number from -2,147,483,648 to 2,147,483,647
-float 		-3.4028235E38	3.4028235E38		signed number from -3.4028235E38 to 3.4028235E38. Floating point on 
-							the Arduino is not native; the compiler has to jump through hoops to make 
-							it work. If you can avoid it, you should. We’ll touch on this later.
+                                                8 bit
+boolean         0               1                       simple logical true/false
+char            -128            127                     signed number from -128 to 127. The compiler will attempt to interpret
+                                                        this data type as a character in some circumstances, which may yield 
+                                                        unexpected results
+unsigned char   0               255                     same as ‘byte’; if this is what you’re after, you should use ‘byte’ instead, 
+byte            unsigned char                           unsigned number from 0-255
+                                                        for reasons of clarity
+                                                16 bit
+int             -32,768         32,767                  signed number from -32768 to 32767. This is most commonly what you see 
+                                                        used for general purpose variables in Arduino example code provided with the IDE
+unsigned int    0               65,535                  the same as ‘word’. Use ‘word’ instead for clarity and brevity
+word            unsigned int                            unsigned number from 0-65535
+                                                32 bit
+unsigned long   0               4,294,967,295           unsigned number from 0-4,294,967,295. The most common usage of this is to store 
+                                                        the result of the millis() function, which returns the number of milliseconds 
+                                                        the current code has been running
+long            -2,147,483,648  2,147,483,647           signed number from -2,147,483,648 to 2,147,483,647
+float           -3.4028235E38   3.4028235E38            signed number from -3.4028235E38 to 3.4028235E38. Floating point on 
+                                                        the Arduino is not native; the compiler has to jump through hoops to make 
+                                                        it work. If you can avoid it, you should. We’ll touch on this later.

@@ -1,0 +1,7 @@
+input 32V - 3.2V
+output highest 38V
+
+Output voltage range: 4V to 38V dc 
+voltage continuously adjustable
+high efficiency (96%) of 
+the maximum output current for 4A.
